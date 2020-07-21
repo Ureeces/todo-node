@@ -3,6 +3,7 @@ const fs = require('fs');
 const readline = require('readline');
 const loadToDos = require('./loadToDos.js');
 const displayToDoList = require('./displayToDos.js');
+const saveToDos = require('./saveToDos.js');
 // const handleMenu = require('./handleMenu.js'); // - not working atm
 
 // Load toDo List
@@ -31,11 +32,12 @@ const add = function(todo) {
     tableToDo.push(newTodo);
     displayToDoList(tableToDo);
 
+    saveToDos(tableToDo);
     interface.close();
 }
 
 const remove = function(todo) {
-    
+
 }
 
 // Handle Menu function
