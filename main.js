@@ -62,9 +62,9 @@ const remove = function(todo) {
 }
 
 // complete function - Changes the status of task to complete
-const complete = function(todo) {
+const complete = function(taskSearch) {
     for(const row of tableToDo) {
-        if(row[0] === todo) {
+        if(row[0] === taskSearch) {
             let index = tableToDo.indexOf(row);
             tableToDo.splice(index, 1, [row[0], 'complete']);
         }
@@ -76,6 +76,18 @@ const complete = function(todo) {
 }
 
 // uncomplete function - Changes the status of take to uncomplete
+const uncomplete = function(taskSearch) {
+    for(const row of tableToDo) {
+        if(row[0] === taskSearch) {
+            let index = tableToDo.indexOf(row);
+            tableToDo.splice(index, 1, [row[0], 'uncomplete']);
+        }
+    }
+
+    displayToDoList(tableToDo);
+    saveToDos(tableToDo);
+    interface.close();
+}
 
 // Handle Menu function
 const handleMenu = function(str) {
@@ -95,6 +107,11 @@ const handleMenu = function(str) {
         case '3':
             const completeQuest = 'Which task did you complete?\n';
             interface.question(completeQuest, complete);
+            break;
+
+        case '4':
+            const uncompleteQuest = 'Which task did you not complete?\n';
+            interface.question(uncompleteQuest, uncomplete);
             break;
 
         default:
