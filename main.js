@@ -23,17 +23,38 @@ Your options are:
 
 `;
 
-const handleMenu = function(str) {
-    switch(str) {
-        default:
-            console.log('Quitting!');
-            break;
-        case '1':
-            console.log(str);
-            break;
-    }
+
+// Interface functions
+// add function - Adds a todo
+const add = function(todo) {
+    const newTodo = [todo, 'uncomplete'];
+    tableToDo.push(newTodo);
+    displayToDoList(tableToDo);
 
     interface.close();
 }
 
-interface.question(menu, handleMenu);
+const remove = function(todo) {
+    
+}
+
+// Handle Menu function
+const handleMenu = function(str) {
+    switch(str) {
+        case '1':
+            const addQuest = 'What should go on your list?\n';
+            interface.question(addQuest, add);
+            
+            break;
+        
+        default:
+            console.log('Quitting!');
+            interface.close();
+            break;
+        }
+        
+    }
+    
+    
+    // Actual interface call
+    interface.question(menu, handleMenu);
