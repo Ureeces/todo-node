@@ -4,6 +4,7 @@ const readline = require('readline');
 const loadToDos = require('./loadToDos.js');
 const displayToDoList = require('./displayToDos.js');
 const saveToDos = require('./saveToDos.js');
+const { table } = require('console');
 // const handleMenu = require('./handleMenu.js'); // - not working atm
 
 // Load toDo List
@@ -36,6 +37,7 @@ const add = function(todo) {
     interface.close();
 }
 
+// remove function - Removes a todo
 const remove = function(todo) {
     let changeDetected = false;
     
@@ -47,17 +49,33 @@ const remove = function(todo) {
         }
     }
     
-    displayToDoList(tableToDo);
     
     if(!changeDetected) {
-        console.log("No item by the name of " + todo + "found.");
+        console.log("No task by the name of " + todo + "found.");
         interface.close();
     }
     
-
+    console.log("\nNew List:");
+    displayToDoList(tableToDo);
     saveToDos(tableToDo);
     interface.close();
 }
+
+// complete function - Changes the status of task to complete
+const complete = function(todo) {
+    for(const row of tableToDo) {
+        if(row[0] === todo) {
+            let index = tableToDo.indexOf(row);
+            tableToDo.splice(index, 1, [row[0], 'complete']);
+        }
+    }
+
+    displayToDoList(tableToDo);
+    saveToDos(tableToDo);
+    interface.close();
+}
+
+// uncomplete function - Changes the status of take to uncomplete
 
 // Handle Menu function
 const handleMenu = function(str) {
@@ -72,6 +90,11 @@ const handleMenu = function(str) {
             const remQuest = 'What do you want to remove?\n';
             interface.question(remQuest, remove);
 
+            break;
+
+        case '3':
+            const completeQuest = 'Which task did you complete?\n';
+            interface.question(completeQuest, complete);
             break;
 
         default:
