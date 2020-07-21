@@ -37,7 +37,16 @@ const add = function(todo) {
 }
 
 const remove = function(todo) {
+    for(const row of tableToDo) {
+        if(row[0] === todo) {
+            let index = tableToDo.indexOf(row);
+            tableToDo.splice(index, 1); 
+        }
 
+    }
+    
+    displayToDoList(tableToDo);
+    interface.close();
 }
 
 // Handle Menu function
@@ -48,7 +57,13 @@ const handleMenu = function(str) {
             interface.question(addQuest, add);
             
             break;
-        
+
+        case '2':
+            const remQuest = 'What do you want to remove?\n';
+            interface.question(remQuest, remove);
+
+            break;
+
         default:
             console.log('Quitting!');
             interface.close();

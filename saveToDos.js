@@ -6,7 +6,7 @@ const saveToDos = function(toDos) {
         strArray.push(row[0] + "," + row[1]);
     }
 
-   str = strArray.join("\n");
+    str = strArray.join("\n");
 
     fs.writeFileSync('./todos.csv', str);
 
