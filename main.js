@@ -37,15 +37,25 @@ const add = function(todo) {
 }
 
 const remove = function(todo) {
+    let changeDetected = false;
+    
     for(const row of tableToDo) {
         if(row[0] === todo) {
             let index = tableToDo.indexOf(row);
             tableToDo.splice(index, 1); 
+            changeDetected = true;
         }
-
     }
     
     displayToDoList(tableToDo);
+    
+    if(!changeDetected) {
+        console.log("No item by the name of " + todo + "found.");
+        interface.close();
+    }
+    
+
+    saveToDos(tableToDo);
     interface.close();
 }
 
